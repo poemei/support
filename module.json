@@ -1,0 +1,37 @@
+{
+    "name": "Support Module",
+    "module": "support",
+    "version": "1.0.2",
+    "description": "Support ticket management with public submission, ticket tracking, administrative replies, tier assignment, and escalation.",
+    "update_url": "https://poemei.com/projects/modules/support/module.json",
+    "creator": "PM",
+    "domain": "poemei.com",
+    "certified": "Yes",
+    "signing": {
+        "algorithm": "rsa-sha256",
+        "fingerprint": "762379FB834CDBE299CD5A817640B4869AD65E22",
+        "sha256": "b3b4601df725f452413ceb3ffc0c2296437c7b537ebed4e179c4114abbaba592",
+        "key_id": "pm-e3c2ffdafb9920f7",
+        "public_key": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQm9qQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FZOEFNSUlCaWdLQ0FZRUEza3QrOVJSV1g5eXRKbkRGay9XZgpaV3pDckIvUmdBWEM2emE0QjU1UE9jSnVxbE9IRlo5VDRQazhBd0tsM0dLQitGZjNBVW81VXN5QWIvQnp5VTAwCkZRajREUENybFRXUWRDUFdud1hSVmVjYlNhd1ZxMkg2em1OZ0JzaWFxaWdZS213ZVFvZjB6MzFjWERtWnFmL0EKODlXREkrOHdiaWNreG9KZ3dBaTFRNUJBZlNUdjBPNmNHSmhiSHNza05VSU9YZFB4cWtnTGxlZkdEcjEyTlJWQwphSWFYR0tEaGRTUzB6WWdYLy9QTWZHaXM5a0dYSW4ybVIrbzRvN25GZ0RvTzQzN3JPaXNtSVk1RG8rRkhGNkJYCnZyMERwUGR3aHZHTElmU2tMYnQrbk5iZ1NUb3Q1b3lUZUNRcUt4QVNTbCtNTFhVcHgvQzVmdTFVM1NGN0Y4Z04KUm1QbGZEUkh3TXp1UzRKdEo5VFFQU0M0b3J4dHJnUTZvVjBkcUpCSnBBV1BXdXJUTlB3VkVNazNnV1J1TUs1TQpIVVJkZ0lCZ2FJdVVnR3lVVUlab1pGU0g2TG5oeGZUVGxkckRwUVJRQXRKdFZtdGJhWUZDRkg2THNCNkQvZXRzCkxhZkZsVDVybE1wRVkzZWhUQkdJU3J1QjBmZVIvblZsQUMxZjRvbXlEMURQQWdNQkFBRT0KLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg=="
+    },
+    "database_tables": [
+        "support_tickets",
+        "support_replies",
+        "support_events"
+    ],
+    "files": [
+        "controllers/support.php",
+        "models/support_model.php",
+        "views/index.php",
+        "views/ticket.php",
+        "views/admin/index.php",
+        "views/admin/ticket.php",
+        "sql/schema.sql",
+        "docs/README.md",
+        "docs/CHANGELOG.md"
+    ],
+    "routes": [
+        "index",
+        "ticket"
+    ]
+}
