@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 — 2026-10-02
+
+### Added
+- Support for Apache2 along with LightSpeed HTTPD
+
 ## 1.0.2 — 2026-09-07
 
 ### Added

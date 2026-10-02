@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-/* [AI:GPT-5.6 Sol | 2026-09-07 19:55:00 UTC] */
-
 /**
  * Support module controller.
  *
@@ -687,5 +685,3 @@ final class support extends controller
         return 'Admin';
     }
 }
-
-/* [End AI:GPT-5.6 Sol] */
