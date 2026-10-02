@@ -1,6 +1,6 @@
 <?php
 
-/* [AI:GPT-5.6 Sol | 2026-09-07 19:02:00 UTC] */
+/* [AI:GPT-5.6 Sol | 2026-10-02 UTC] */
 
 /**
  * Public Support module view.
@@ -19,7 +19,7 @@ $escape = static fn ($value): string => htmlspecialchars(
 );
 
 $available = (bool) ($data['available'] ?? false);
-
+$topics = is_array($data['topics'] ?? null) ? $data['topics'] : [];
 ?>
 
 <main class="container py-5">
@@ -27,16 +27,12 @@ $available = (bool) ($data['available'] ?? false);
         <h1>Support</h1>
 
         <?php if (!$available): ?>
-
             <div class="alert alert-warning">
                 Support is currently unavailable.
             </div>
-
         <?php else: ?>
-
             <p>
-                Need help with STNC Chain?, The Chain, Stratum, Core or Miner?, or another issue? Open a support
-                ticket below.
+                Need help? Open a support ticket below.
             </p>
 
             <?php if (($data['error'] ?? null) !== null): ?>
@@ -45,117 +41,101 @@ $available = (bool) ($data['available'] ?? false);
                 </div>
             <?php endif; ?>
 
-            <form method="post" action="/support">
-                <?= $this->csrf_field(); ?>
-
-                <div class="mb-3">
-                    <label
-                        for="support-name"
-                        class="form-label"
-                    >
-                        Name
-                    </label>
-
-                    <input
-                        id="support-name"
-                        class="form-control"
-                        type="text"
-                        name="name"
-                        maxlength="150"
-                        required
-                    >
+            <?php if ($topics === []): ?>
+                <div class="alert alert-warning">
+                    Support is not currently accepting new tickets.
                 </div>
+            <?php else: ?>
+                <form method="post" action="/support">
+                    <?= $this->csrf_field(); ?>
 
-                <div class="mb-3">
-                    <label
-                        for="support-email"
-                        class="form-label"
-                    >
-                        Email
-                    </label>
+                    <div class="mb-3">
+                        <label for="support-name" class="form-label">Name</label>
+                        <input
+                            id="support-name"
+                            class="form-control"
+                            type="text"
+                            name="name"
+                            maxlength="150"
+                            required
+                        >
+                    </div>
 
-                    <input
-                        id="support-email"
-                        class="form-control"
-                        type="email"
-                        name="email"
-                        maxlength="255"
-                        required
-                    >
-                </div>
+                    <div class="mb-3">
+                        <label for="support-email" class="form-label">Email</label>
+                        <input
+                            id="support-email"
+                            class="form-control"
+                            type="email"
+                            name="email"
+                            maxlength="255"
+                            required
+                        >
+                    </div>
 
-                <div class="mb-3">
-                    <label
-                        for="support-type"
-                        class="form-label"
-                    >
-                        Type
-                    </label>
+                    <div class="mb-3">
+                        <label for="support-type" class="form-label">Type</label>
+                        <select
+                            id="support-type"
+                            class="form-select"
+                            name="type"
+                            required
+                        >
+                            <?php foreach ($topics as $topic): ?>
+                                <?php
+                                if (!is_array($topic)) {
+                                    continue;
+                                }
 
-                    <select
-                        id="support-type"
-                        class="form-select"
-                        name="type"
-                    >
-                        <option value="general">General</option>
-                        <option value="chain_bug">Chain Bug</option>
-						<option value="stratum_bug">Stratum Bug</option>
-                        <option value="installation">
-                            Installation
-                        </option>
-                        <option value="core">STNC Core</option>
+                                $value = trim((string) ($topic['value'] ?? ''));
+                                $label = trim((string) ($topic['label'] ?? ''));
 
-                </div>
+                                if ($value === '' || $label === '') {
+                                    continue;
+                                }
+                                ?>
+                                <option value="<?= $escape($value); ?>">
+                                    <?= $escape($label); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label
-                        for="support-subject"
-                        class="form-label"
-                    >
-                        Subject
-                    </label>
+                    <div class="mb-3">
+                        <label for="support-subject" class="form-label">Subject</label>
+                        <input
+                            id="support-subject"
+                            class="form-control"
+                            type="text"
+                            name="subject"
+                            maxlength="255"
+                            required
+                        >
+                    </div>
 
-                    <input
-                        id="support-subject"
-                        class="form-control"
-                        type="text"
-                        name="subject"
-                        maxlength="255"
-                        required
-                    >
-                </div>
+                    <div class="mb-3">
+                        <label for="support-description" class="form-label">
+                            What happened?
+                        </label>
+                        <textarea
+                            id="support-description"
+                            class="form-control"
+                            name="description"
+                            rows="8"
+                            required
+                        ></textarea>
+                    </div>
 
-                <div class="mb-3">
-                    <label
-                        for="support-description"
-                        class="form-label"
-                    >
-                        What happened?
-                    </label>
-
-                    <textarea
-                        id="support-description"
-                        class="form-control"
-                        name="description"
-                        rows="8"
-                        required
-                    ></textarea>
-                </div>
-
-                <button
-                    type="submit"
-                    class="btn btn-primary"
-                >
-                    Open Ticket
-                </button>
-            </form>
-
+                    <button type="submit" class="btn btn-primary">
+                        Open Ticket
+                    </button>
+                </form>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 </main>
 
 <?php
-
 if (!theme::render('foot', get_defined_vars())) {
     require APPROOT . '/views/inc/foot.php';
 }
